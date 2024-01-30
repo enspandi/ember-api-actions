@@ -1,4 +1,3 @@
-import { assign } from '@ember/polyfills';
 import { waitForPromise } from '@ember/test-waiters';
 import Model from 'ember-data/model';
 import { Value as JSONValue } from 'json-typescript';
@@ -25,7 +24,7 @@ export default function instanceOp<IN = any, OUT = any>(options: InstanceOperati
     const fullUrl = buildOperationUrl(this, path, urlType);
     const data = (before && before.call(this, payload)) || payload;
     const promise = adapter
-      .ajax(fullUrl, requestType, assign(ajaxOptions || {}, { data }))
+      .ajax(fullUrl, requestType, Object.assign(ajaxOptions || {}, { data }))
       .then((response: JSONValue) => {
         if (after && !this.isDestroyed) {
           return after.call(this, response);
